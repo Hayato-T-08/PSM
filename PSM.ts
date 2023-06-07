@@ -15,7 +15,7 @@ var graph: number[][] = new Array();
 var tmp = 50;
 
 
-for( var i=0;i<=12;i++){
+for( var i=0;i<12;i++){
     graph[i]= new Array();
     for(var j=0;j<5;j++){
         if(j===0) graph[i][0] = tmp;
@@ -27,7 +27,7 @@ for( var i=0;i<=12;i++){
 
 
 
-for(var i=0;i<=12;i++){
+for(var i=0;i<12;i++){
     for(var j=1;j<=all_num;j++){
     if(records[j][1]<=graph[i][0]){
         graph[i][1]++;
@@ -47,10 +47,11 @@ for(var i=0;i<=12;i++){
     }
 }
 
-for(var i=0;i<=12;i++){
+for(var i=0;i<12;i++){
     for(var j=1;j<=4;j++){
         graph[i][j]/=all_num;
         graph[i][j]*=100;
+        graph[i][j]=Number(graph[i][j].toFixed(1));
     }
 }
 
