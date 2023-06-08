@@ -135,6 +135,10 @@ console.log("妥協価格"+clacCross(think_exp[comp_p_idx1],think_exp[comp_p_idx
 console.log("理想価格"+clacCross(too_exp[ideal_p_idx1],too_exp[ideal_p_idx2],too_cheap[ideal_p_idx1],too_cheap[ideal_p_idx2]).getX().toFixed()+"円");
 console.log("最低品質保証価格"+clacCross(think_exp[min_p_idx1],think_exp[min_p_idx2],too_cheap[min_p_idx1],too_cheap[min_p_idx2]).getX().toFixed()+"円");
 
+// 実行結果
 
-
+// 最高価格292円
+// 妥協価格279円
+// 理想価格265円
+// 最低品質保証価格247円
     
