@@ -1,9 +1,24 @@
 import * as fs from 'fs';
 import { parse } from 'csv-parse/sync';
 
+class Point{
+    private x:number;
+    private y:number;
+
+    constructor(x:number,y:number){
+        this.x = x;
+        this.y = y;
+    }
+
+}
+
+function isCross(a1:Point,a2:Point,b1:Point,b2:Point){
+
+}
+
 const data = fs.readFileSync('PSMrawdata.csv');
 const records = parse(data);
-let all_num=0;
+var all_num=0;
 for (const record of records) {
     console.log(record);
     all_num++;
@@ -58,4 +73,6 @@ for(var i=0;i<12;i++){
 for(const num of graph){
     console.log(num);
 }
+
+
     
