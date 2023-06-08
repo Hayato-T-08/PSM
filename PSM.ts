@@ -35,16 +35,24 @@ function isCross(a:Point,b:Point,c:Point,d:Point){
     return true;
 }
 
+function clacCross(a:Point,b:Point,c:Point,d:Point){
+    let result:Point;
+    let x:number,y:number;
+    x = ((c.getY()-a.getY())*(a.getX()-b.getX())*(c.getX()-d.getX())+(a.getX())*(a.getY()-b.getY())*(c.getX()-d.getX())-c.getX()*(c.getY()-d.getY())*(a.getX()-b.getX()))/((a.getY()-b.getY())*(c.getX()-d.getX())-(a.getX()-b.getX())*(c.getY()-d.getY()));
+    y = x*(a.getY()-b.getY())/(a.getX()-b.getX()) + a.getY()-a.getX()*(a.getY()-b.getY())/(a.getX()-b.getX());
+    result = new Point(x,y);
+    return result;
+}
+
 const data = fs.readFileSync('PSMrawdata.csv');
 const records = parse(data);
 let all_num=0;
 for (const record of records) {
-    console.log(record);
     all_num++;
 }
 
 all_num--;
-console.log(all_num);
+
 let graph: number[][] = new Array();
 let tmp = 50;
 
@@ -89,9 +97,6 @@ for(let i=0;i<12;i++){
     }
 }
 
-for(const num of graph){
-    console.log(num);
-}
 
 let too_cheap:Point[] = new Array();
 let think_cheap:Point[] = new Array();
@@ -104,28 +109,41 @@ for(let i=0;i<12;i++){
     too_exp[i] = new Point(graph[i][0],graph[i][3]);
     too_cheap[i] = new Point(graph[i][0],graph[i][4]);
 }
-console.log("安いと思う");
-for(const point of think_exp){
-    console.log(point.getX()+" "+point.getY());
-}
-console.log("高いと思う");
-for(const point of think_cheap){
-    console.log(point.getX()+" "+point.getY());
-}
-console.log("高すぎる");
-for(const point of too_exp){
-    console.log(point.getX()+" "+point.getY());
-}
-console.log("安すぎる");
-for(const point of too_cheap){
-    console.log(point.getX()+" "+point.getY());
-}
+
+
+let max_p_idx1=0,max_p_idx2=0;
+let comp_p_idx1=0,comp_p_idx2=0;
+let ideal_p_idx1=0,ideal_p_idx2=0;
+let min_p_idx1=0,min_p_idx2=0;
+
 
 for(let i=0;i<11;i++){
     if(isCross(too_exp[i],too_exp[i+1],think_cheap[i],think_cheap[i+1])){
-        console.log(i+" "+(i+1));
+        max_p_idx1=i;
+        max_p_idx2=i+1;
+    }
+
+    if(isCross(think_exp[i],think_exp[i+1],think_cheap[i],think_cheap[i+1])){
+        comp_p_idx1=i;
+        comp_p_idx2=i+1;
+        
+    }
+
+    if(isCross(too_exp[i],too_exp[i+1],too_cheap[i],too_cheap[i+1])){
+        ideal_p_idx1=i;
+        ideal_p_idx2=i+1;
+    }
+    
+    if(isCross(think_exp[i],think_exp[i+1],too_cheap[i],too_cheap[i+1])){
+        min_p_idx1=i;
+        min_p_idx2=i+1;
     }
 }
+console.log("最高価格"+clacCross(too_exp[max_p_idx1],too_exp[max_p_idx2],think_cheap[max_p_idx1],think_cheap[max_p_idx2]).getX().toFixed()+"円");
+console.log("妥協価格"+clacCross(think_exp[comp_p_idx1],think_exp[comp_p_idx2],think_cheap[comp_p_idx1],think_cheap[comp_p_idx2]).getX().toFixed()+"円");
+console.log("理想価格"+clacCross(too_exp[ideal_p_idx1],too_exp[ideal_p_idx2],too_cheap[ideal_p_idx1],too_cheap[ideal_p_idx2]).getX().toFixed()+"円");
+console.log("最低品質保証価格"+clacCross(think_exp[min_p_idx1],think_exp[min_p_idx2],too_cheap[min_p_idx1],too_cheap[min_p_idx2]).getX().toFixed()+"円");
+
 
 
     
