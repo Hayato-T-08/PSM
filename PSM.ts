@@ -17,9 +17,7 @@ class Point{
     getY():number {
         return this.y;
     }
-
-    
-}
+}//x y座標を保存するPoint class
 
 function isCross(a:Point,b:Point,c:Point,d:Point){
     let s = (a.getX()-b.getX())*(c.getY()-a.getY())-(a.getY()-b.getY())*(c.getX()-a.getX());
@@ -33,7 +31,7 @@ function isCross(a:Point,b:Point,c:Point,d:Point){
     if(s*t>0) return false;
 
     return true;
-}
+}//直線の交差判定をする関数
 
 function clacCross(a:Point,b:Point,c:Point,d:Point){
     let result:Point;
@@ -42,10 +40,11 @@ function clacCross(a:Point,b:Point,c:Point,d:Point){
     y = x*(a.getY()-b.getY())/(a.getX()-b.getX()) + a.getY()-a.getX()*(a.getY()-b.getY())/(a.getX()-b.getX());
     result = new Point(x,y);
     return result;
-}
+}//直線の交差している座標を計算する関数
 
 const data = fs.readFileSync('PSMrawdata.csv');
 const records = parse(data);
+//csvを読み込む
 let all_num=0;
 for (const record of records) {
     all_num++;
@@ -54,6 +53,7 @@ for (const record of records) {
 all_num--;
 
 let graph: number[][] = new Array();
+//集計結果を保存する配列
 let tmp = 50;
 
 
@@ -91,6 +91,7 @@ for(let i=0;i<12;i++){
         graph[i][j]/=all_num;
         graph[i][j]*=100;
         graph[i][j]=Number(graph[i][j].toFixed(1));
+        //%表記に変更
     }
 }
 
@@ -98,6 +99,8 @@ let too_cheap:Point[] = new Array();
 let think_cheap:Point[] = new Array();
 let think_exp:Point[] = new Array();
 let too_exp:Point[] = new Array();
+
+//アンケート結果をそれぞれ保存する
 
 for(let i=0;i<12;i++){
     think_exp[i] = new Point(graph[i][0],graph[i][1]);
@@ -107,7 +110,7 @@ for(let i=0;i<12;i++){
 }
 
 let max_p_idx1=0,max_p_idx2=0,comp_p_idx1=0,comp_p_idx2=0,ideal_p_idx1=0,ideal_p_idx2=0,min_p_idx1=0,min_p_idx2=0;
-
+//直線が交わる2点のindex
 for(let i=0;i<11;i++){
     if(isCross(too_exp[i],too_exp[i+1],think_cheap[i],think_cheap[i+1])){
         max_p_idx1=i;
