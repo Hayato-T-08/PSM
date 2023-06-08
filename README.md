@@ -1,1 +1,1 @@
-compile ./node_modules/.bin/ts-node PSM.ts
+compile and run ./node_modules/.bin/ts-node PSM.ts
