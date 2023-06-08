@@ -106,10 +106,7 @@ for(let i=0;i<12;i++){
     too_cheap[i] = new Point(graph[i][0],graph[i][4]);
 }
 
-let max_p_idx1=0,max_p_idx2=0;
-let comp_p_idx1=0,comp_p_idx2=0;
-let ideal_p_idx1=0,ideal_p_idx2=0;
-let min_p_idx1=0,min_p_idx2=0;
+let max_p_idx1=0,max_p_idx2=0,comp_p_idx1=0,comp_p_idx2=0,ideal_p_idx1=0,ideal_p_idx2=0,min_p_idx1=0,min_p_idx2=0;
 
 for(let i=0;i<11;i++){
     if(isCross(too_exp[i],too_exp[i+1],think_cheap[i],think_cheap[i+1])){
